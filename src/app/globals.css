@@ -1,26 +1,632 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Add responsive breakpoints */
+  --screen-sm: 640px;
+  --screen-md: 768px;
+  --screen-lg: 1024px;
+  --screen-xl: 1280px;
+  
+  /* Update spacing system */
+  --header-height: 4rem;
+  --sidebar-width: 300px;
+  --content-width: 768px;
+  
+  /* Add animation variables */
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-medium: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Update shadow system */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Brand Colors */
+  --brand-primary: hsl(156, 95%, 35%);
+  --brand-secondary: hsl(156, 80%, 45%);
+  --brand-accent: hsl(180, 75%, 45%);
+  
+  /* Add Logo Animation */
+  --logo-glow: drop-shadow(0 0 0.5rem var(--brand-primary));
+  --logo-spin: rotate(360deg);
+  
+  /* Add Modern Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  --gradient-accent: linear-gradient(135deg, var(--brand-secondary), var(--brand-accent));
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
+/* Add responsive layout classes */
+.chat-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: all var(--transition-medium);
+}
+
+/* Update sidebar and chat history styles */
+.chat-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--border);
+  transform: translateX(-100%);
+  transition: transform var(--transition-medium);
+  z-index: 40;
+}
+
+/* Remove chat-history-container styles since we're using ScrollArea */
+
+.chat-sidebar.open {
+  transform: translateX(0);
+}
+
+.chat-content {
+  flex: 1;
+  margin-left: 0;
+  transition: margin-left var(--transition-medium);
+}
+
+/* Update toggle button styles */
+.sidebar-toggle-btn {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Desktop styles */
+@media (min-width: 768px) {
+  .chat-sidebar {
+    position: relative;
+    transform: none;
+    height: 100vh;
+  }
+
+  .chat-content {
+    margin-left: var(--sidebar-width);
+    transition: margin-left var(--transition-medium);
+  }
+
+  .chat-content.sidebar-closed {
+    margin-left: 0;
+  }
+
+  .chat-sidebar.closed {
+    transform: translateX(-100%);
+  }
+
+  .sidebar-toggle-btn {
+    position: fixed;
+    z-index: 50;
+    top: 50%;
+    transform: translateY(-50%);
+    left: calc(var(--sidebar-width) - 1.5rem);
+    transition: left var(--transition-medium);
+  }
+
+  .sidebar-toggle-btn.closed {
+    left: 0.5rem;
+  }
+
+  .sidebar-toggle-btn:hover {
+    background-color: var(--accent);
+  }
+}
+
+/* Add subtle animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Update layout classes */
+.chat-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Update sidebar styles */
+.chat-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  background-color: var(--sidebar);
+  border-right: 1px solid var(--border);
+  transition: all var(--transition-medium);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add sidebar toggle styles */
+.sidebar-toggle {
+  position: absolute;
+  right: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 41;
+  transition: all var(--transition-medium);
+}
+
+.chat-sidebar.collapsed {
+  width: 0;
+  overflow: hidden;
+}
+
+.chat-content {
+  margin-left: var(--sidebar-width);
+  width: calc(100vw - var(--sidebar-width));
+  transition: all var(--transition-medium);
+}
+
+.chat-content.expanded {
+  margin-left: 0;
+  width: 100vw;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .chat-sidebar {
+    transform: translateX(-100%);
+    width: 85vw;
+    max-width: var(--sidebar-width);
+  }
+
+  .chat-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .chat-content {
+    margin-left: 0;
+    width: 100vw;
+  }
+
+  /* Hide desktop sidebar toggle on mobile */
+  .sidebar-toggle.desktop {
+    display: none;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+  .chat-sidebar {
+    position: relative;
+    transform: none;
+  }
+
+  /* Hide mobile menu button on desktop */
+  .mobile-menu {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .chat-sidebar:hover .sidebar-toggle {
+    opacity: 1;
+  }
+}
+
+/* Menu output styles */
+.meal-plan-grid {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .meal-plan-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+/* Add responsive meal plan styles */
+.meal-plan {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .meal-plan {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+.meal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Update meal image styles */
+.meal-image {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border);
+}
+
+.meal-image img {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.meal-image:hover img {
+  transform: scale(1.05);
+}
+
+/* Add loading animation */
+.image-generating {
+  position: relative;
+  min-height: 12rem;
+  background: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-generating::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--background),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Chat history styles */
+.chat-history-group {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.chat-history-date {
+  position: sticky;
+  top: 0;
+  background-color: var(--background);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.chat-history-item {
+  transition: all 0.2s ease;
+}
+
+.chat-history-item:hover {
+  transform: translateX(2px);
+}
+
+/* Customize ScrollArea for chat history */
+.chat-history-scroll {
+  height: calc(100vh - 12rem); /* Adjust based on your layout */
+}
+
+.chat-history-scroll [data-radix-scroll-area-viewport] {
+  padding-bottom: 1rem;
+}
+
+/* Chat group animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chat-history-group {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Logo Animation */
+@keyframes glow {
+  0% { filter: var(--logo-glow); }
+  50% { filter: none; }
+  100% { filter: var(--logo-glow); }
+}
+
+@keyframes spin {
+  from { transform: var(--logo-spin); }
+  to { transform: rotate(360deg); }
+}
+
+.logo-container {
+  animation: glow 3s ease-in-out infinite;
+}
+
+.logo-icon {
+  animation: spin 20s linear infinite;
+}
+
+/* Modern Card Design */
+.modern-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 12px -2px rgb(0 0 0 / 0.15);
+}
+
+/* Enhanced Chat UI */
+.chat-message {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.chat-message::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-brand);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.chat-message:hover::before {
+  opacity: 1;
+}
+
+/* Logo styles */
+.logo-container {
+  isolation: isolate;
+  mix-blend-mode: normal;
+}
+
+.logo-icon {
+  isolation: isolate;
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: var(--gradient-brand);
+  opacity: 0.1;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Update dark mode specific styles */
+.dark .logo-container {
+  mix-blend-mode: normal;
+}
+
+.dark .logo-icon {
+  box-shadow: 0 0 0 1px var(--brand-primary);
+}
+
+/* Feature toggle styles */
+.feature-toggles {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: var(--background);
+  border-radius: 0.5rem;
+}
+
+.feature-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.feature-toggle:hover {
+  opacity: 1;
+}
+
+/* Update chat input container */
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--background);
+  border-top: 1px solid var(--border);
 }
