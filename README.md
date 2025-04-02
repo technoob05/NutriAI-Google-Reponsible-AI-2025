@@ -75,10 +75,15 @@ Follow these instructions to get a copy of the project up and running on your lo
     ```
     GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
     # Add other necessary environment variables
+    
    NEXT_PUBLIC_OPENAI_API_KEY
+   
    NEXT_PUBLIC_GOOGLE_API_KEY
+   
    NEXT_PUBLIC_HUGGINGFACE_API_KEY
+   
    HF_TOKEN
+   
    GEMINI_API_KEY
 
     ```
